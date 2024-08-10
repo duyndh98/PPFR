@@ -241,7 +241,7 @@ class TrainTask(LocalBaseTask):
         """
         self.prepare()
         self.call_hook("before_run")
-        self.backbone = DistributedDataParallel(self.backbone, device_ids=[self.local_rank],
+        self.backbone = DistributedDataParallel(self.backbone, device_ids=[self.local_rank] if torch.cuda.is_available() else None,
                                                 find_unused_parameters=True)
         for epoch in range(self.start_epoch, self.epoch_num):
             self.call_hook("before_train_epoch", epoch)

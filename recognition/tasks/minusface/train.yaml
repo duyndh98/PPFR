@@ -1,8 +1,8 @@
 SEED: 1337 # random seed for reproduce results
-DATA_ROOT: '' # [fill in this blank] the parent directory where your train/val/test data are stored
-INDEX_ROOT: '' # [fill in this blank] the parent directory for index
+DATA_ROOT: '../../../../data/test/data/Asian' # [fill in this blank] the parent directory where your train/val/test data are stored
+INDEX_ROOT: '../../../../data/test/txts/Asian' # [fill in this blank] the parent directory for index
 DATASETS:
-  - name: # [fill in this blank] the name of your dataset
+  - name: 'Asian_images' # [fill in this blank] the name of your dataset
     batch_size: 64
     weight: 1.0
     scale: 64
@@ -40,7 +40,7 @@ MOMENTUM: 0.9
 WORLD_SIZE: 1
 RANK: 0
 LOCAL_RANK: 0
-DIST_BACKEND: 'nccl'
+DIST_BACKEND: 'gloo'
 DIST_URL: 'env://'
 
 NUM_WORKERS: 8

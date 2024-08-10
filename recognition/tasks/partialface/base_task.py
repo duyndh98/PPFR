@@ -130,7 +130,8 @@ class LocalBaseTask(BaseTask):
             logging.info(f"Minus {self.cfg['TASK']} Backbone Generated")
         # =====================================================
 
-        self.backbone.cuda()
+        if torch.cuda.is_available():
+            self.backbone.cuda()
 
         embedding_size = self.cfg['EMBEDDING_SIZE']
         self.class_shards = []
@@ -151,7 +152,8 @@ class LocalBaseTask(BaseTask):
                           scale=branch.scale,
                           margin=branch.margin)
             del init_value
-            head = head.cuda()
+            if torch.cuda.is_available():
+                head = head.cuda()
             self.heads[name] = head
 
     def get_optimizer(self):

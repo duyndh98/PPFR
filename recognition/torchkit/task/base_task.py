@@ -100,7 +100,8 @@ class BaseTask(object):
         self.world_size = dist.get_world_size()
         self.rank = dist.get_rank()
         self.local_rank = int(os.environ.get('LOCAL_RANK', 0))
-        torch.cuda.set_device(self.local_rank)
+        if torch.cuda.is_available():
+            torch.cuda.set_device(self.local_rank)
         logging.info("world_size: %s, rank: %d, local_rank: %d" %
                      (self.world_size, self.rank, self.local_rank))
         self.cfg['WORLD_SIZE'] = self.world_size
