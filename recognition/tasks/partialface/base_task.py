@@ -71,6 +71,7 @@ class LocalBaseTask(BaseTask):
         rgb_std = self.cfg['RGB_STD']
         transform = transforms.Compose([
             transforms.ToPILImage(),
+            transforms.Resize((112, 112)),
             transforms.RandomHorizontalFlip(),
             transforms.ToTensor(),
             transforms.Normalize(mean=rgb_mean, std=rgb_std)

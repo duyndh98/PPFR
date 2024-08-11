@@ -31,7 +31,9 @@ class TrainTask(LocalBaseTask):
         features_gather = [torch.split(x, self.batch_sizes) for x in features_gather]
         all_features = []
         for i in range(len(self.batch_sizes)):
-            all_features.append(torch.cat([x[i] for x in features_gather], dim=0).cuda())
+            all_features.append(
+                torch.cat([x[i] for x in features_gather], dim=0).cuda() if torch.cuda.is_available() else
+                torch.cat([x[i] for x in features_gather], dim=0))
         return all_features
 
     def loop_step(self, epoch):
@@ -71,8 +73,8 @@ class TrainTask(LocalBaseTask):
             self.call_hook("before_train_iter", step, epoch)
             backbone_opt, head_opts = self.opt['backbone'], list(self.opt['heads'].values())
 
-            inputs = samples[0].cuda(non_blocking=True)
-            labels = samples[1].cuda(non_blocking=True)
+            inputs = samples[0].cuda(non_blocking=True) if torch.cuda.is_available() else samples[0]
+            labels = samples[1].cuda(non_blocking=True) if torch.cuda.is_available() else samples[1]
 
             # ============== PartialFace / MinusFace ==============
             if self.cfg['METHOD'] == 'PartialFace':

@@ -2,8 +2,8 @@ SEED: 1337 # random seed for reproduce results
 DATA_ROOT: '../../../../data/test/data/Asian' # [fill in this blank] the parent directory where your train/val/test data are stored
 INDEX_ROOT: '../../../../data/test/txts/Asian' # [fill in this blank] the parent directory for index
 DATASETS:
-  - name: 'Asian_images' # [fill in this blank] the name of your dataset
-    batch_size: 64
+  - name: 'Asian_images.index' # [fill in this blank] the name of your dataset
+    batch_size: 4
     weight: 1.0
     scale: 64
     margin: 0.5
@@ -50,6 +50,7 @@ AMP: false # fp16 for backbone
 # MinusFace
 METHOD: MinusFace
 TASK: stage1 # toy, stage1, stage2
+NUM_DUPS: 1
 NUM_AUG: 3 # multiplier for data augmentation
 TASK_BACKBONE: 'IR_18' # IR_18, IR_50
 PRETRAIN_CKPT: '' # [fill in this blank] to train the recognition model requires pretrained MinusFace checkpoint
